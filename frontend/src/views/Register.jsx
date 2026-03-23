@@ -18,6 +18,8 @@ import dataController from "../utils/DataController";
 import { useNavigate } from "react-router-dom";
 import "../styles/register.css";
 
+const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+
 export default function RegisterPage() {
   const navigate = useNavigate();
   const dc = new dataController();
@@ -40,7 +42,7 @@ export default function RegisterPage() {
       loginData.teacherName = data.get("username");
     }
 
-    dc.PostData("http://localhost:5000" + "/", loginData)
+    dc.PostData(API_BASE + "/", loginData)
       .then((resp) => {
         if (resp.success === true && resp.data.success === true) {
           setTimeout(() => {

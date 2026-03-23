@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../styles/login.css";
 
+const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000";
+
 export default function Login(props) {
   const [error, setError] = useState([false, false]);
 
@@ -43,7 +45,7 @@ export default function Login(props) {
       password: data.get("password"),
     };
 
-    dc.PostData("http://localhost:5000" + "/login", loginData)
+    dc.PostData(API_BASE + "/login", loginData)
       .then((resp) => {
         if (resp.success === true && resp.data.success === true) {
           localStorage.setItem("auth_token", resp.data.data.access_token);
