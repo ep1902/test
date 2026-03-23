@@ -1,0 +1,337 @@
+.post-login-page {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.post-login-card {
+  width: 100%;
+  max-width: 700px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.post-login-content {
+  text-align: center;
+}
+
+.post-login-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.post-login-description {
+  margin: 16px 0 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.post-login-actions {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+}
+
+.create-excursion-button {
+  border: none;
+  border-radius: 16px;
+  padding: 14px 24px;
+  background-color: #0f172a;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.create-excursion-button:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.create-excursion-button:active {
+  transform: translateY(0);
+}
+
+.page {
+  min-height: 100vh;
+  background: #f6f7fb;
+  padding: 24px;
+  font-family: system-ui;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card {
+  width: min(900px, 100%);
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.logout-button-fixed {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(220, 38, 38, 0.25);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  z-index: 1000;
+}
+
+.logout-button-fixed:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(220, 38, 38, 0.32);
+}
+
+.logout-button-fixed:active {
+  transform: translateY(0);
+}
+
+.logout-button-fixed:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.35);
+}
+
+.create-excursion-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.create-excursion-card {
+  width: 100%;
+  max-width: 700px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.create-excursion-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+}
+
+.create-excursion-description {
+  margin: 12px 0 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #475569;
+  text-align: center;
+}
+
+.create-excursion-form {
+  margin-top: 28px;
+}
+
+.create-excursion-field {
+  margin-bottom: 20px;
+}
+
+.create-excursion-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.create-excursion-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 15px;
+  color: #0f172a;
+  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.create-excursion-input:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
+}
+
+.create-excursion-actions {
+  margin-top: 28px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.create-excursion-cancel-button {
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 18px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create-excursion-submit-button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 18px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.excursions-list-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  padding: 0 16px;
+}
+
+.excursions-list-card {
+  width: 100%;
+  max-width: 700px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.excursions-list-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.excursions-list-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.excursions-list-count {
+  font-size: 12px;
+  color: #666;
+}
+
+.excursions-empty {
+  font-size: 13px;
+  color: #666;
+  padding: 8px 0;
+}
+
+.excursions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.results-button-fixed,
+.profile-button-fixed {
+  position: fixed;
+  top: 20px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  background: #111111;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  z-index: 1000;
+}
+
+.results-button-fixed {
+  right: 200px;
+}
+
+.profile-button-fixed {
+  right: 110px;
+}
+
+.results-button-fixed:hover,
+.profile-button-fixed:hover {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.results-button-fixed:active,
+.profile-button-fixed:active {
+  transform: translateY(0);
+}
+
+.results-button-fixed:focus,
+.profile-button-fixed:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.35);
+}
+
+@media (max-width: 560px) {
+  .excursions-list-card {
+    max-width: 100%;
+  }
+
+  .excursions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-button-fixed {
+    right: 220px;
+    padding: 9px 14px;
+  }
+
+  .profile-button-fixed {
+    right: 120px;
+    padding: 9px 14px;
+  }
+
+  .logout-button-fixed {
+    padding: 9px 14px;
+  }
+}

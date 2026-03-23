@@ -1,0 +1,136 @@
+.profilePage {
+  min-height: 100vh;
+  background: #f6f7fb;
+  padding: 24px;
+  font-family: system-ui;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profileCard {
+  width: min(900px, 100%);
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+}
+
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.profileTitle {
+  margin: 0;
+}
+
+.profileSubtitle {
+  margin-top: 6px;
+  color: #555;
+}
+
+.profileHr {
+  margin: 16px 0;
+}
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.infoCard {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff;
+}
+
+.infoLabel {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.infoValue {
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.profileActionsRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.profileFooter {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btnDanger {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ffcccc;
+  background: #ffecec;
+  cursor: pointer;
+}
+
+.btnDanger:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.profileError {
+  color: crimson;
+}
+
+.profileForm {
+  display: block;
+}
+
+.field .input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.field .input:focus {
+  border-color: #b7c6ff;
+}
+
+.input {
+  width: 95%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.input:focus {
+  border-color: #b7c6ff;
+}

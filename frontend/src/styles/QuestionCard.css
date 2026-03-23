@@ -1,0 +1,55 @@
+.excCard {
+  border: 1px solid #e6e6e6;
+  border-radius: 16px;
+  padding: 16px;
+  background: #ffffff;
+  cursor: pointer;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.excCard:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.excCardTitle {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #222;
+}
+
+.excCardActions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.excIconBtn {
+  border: 1px solid #ddd;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.excIconBtn:hover {
+  background: #f7f7f7;
+}
+
+.excIconBtn.danger {
+  border-color: #f0b4b4;
+  color: #b42318;
+}
+
+.excIconBtn.danger:hover {
+  background: #fff5f5;
+}

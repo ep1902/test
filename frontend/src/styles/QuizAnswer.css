@@ -1,0 +1,36 @@
+.answer-card {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  font-size: 15px;
+  color: #0f172a;
+  text-align: left;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.answer-card:hover:not(:disabled) {
+  border-color: #94a3b8;
+  background: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.answer-card.selected {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+  box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
+  font-weight: 600;
+}
+
+.answer-card:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}

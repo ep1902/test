@@ -1,0 +1,67 @@
+.mv-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  height: 100vh;
+}
+
+.mv-sidebar {
+  padding: 16px;
+  border-right: 1px solid #eee;
+  overflow: auto;
+}
+
+.mv-mapWrap {
+  height: 100%;
+}
+
+.mv-title {
+  margin-top: 0;
+}
+
+.mv-block {
+  margin-bottom: 12px;
+}
+
+.mv-mono {
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.mv-error {
+  color: crimson;
+}
+
+.mv-hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 16px 0;
+}
+
+.mv-btn {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.mv-btnSmall {
+  padding: 8px 10px;
+}
+
+.mv-move {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+  width: 180px;
+}
+
+.mv-row {
+  display: flex;
+  gap: 6px;
+}
+
+.mv-flex {
+  flex: 1;
+}
+
+.mv-loading {
+  padding: 24px;
+}
