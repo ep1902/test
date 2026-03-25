@@ -247,13 +247,13 @@ export default function MapPageTeacher() {
         },
         {
           enableHighAccuracy: true,
-          timeout: 15000,
-          maximumAge: 0,
+          timeout: 10000,
+          maximumAge: 3000,
         },
       );
     };
 
-    const intervalId = setInterval(refreshRealLocation, 15000);
+    const intervalId = setInterval(refreshRealLocation, 5000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -355,7 +355,7 @@ export default function MapPageTeacher() {
     <div className="mv-layout">
       <div className="mv-sidebar">
         <h2 className="mv-title">Map</h2>
-
+        {/*
         <div className="mv-block">
           <strong>user (query):</strong>
           <div className="mv-mono">{qpUserId || "(nema)"}</div>
@@ -365,7 +365,7 @@ export default function MapPageTeacher() {
           <strong>excursion (query):</strong>
           <div className="mv-mono">{qpExcursion || "(nema)"}</div>
         </div>
-
+*/}
         <div className="mv-block">
           <strong>Moja lokacija:</strong>
           <div className="mv-mono">
@@ -375,7 +375,7 @@ export default function MapPageTeacher() {
           </div>
           {geoErr && <div className="mv-error">Geolocation: {geoErr}</div>}
         </div>
-
+        {/*
         <div className="mv-block">
           <strong>Kontroler kretanja</strong>
           <div className="mv-move">
@@ -398,6 +398,7 @@ export default function MapPageTeacher() {
             </button>
           </div>
         </div>
+        */}
 
         <hr className="mv-hr" />
 
