@@ -2,9 +2,9 @@
   min-height: 100vh;
   background-color: #f8fafc;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  padding: 96px 24px 24px;
+  padding: 24px;
   box-sizing: border-box;
 }
 
@@ -12,9 +12,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
   width: 100%;
-  max-width: 700px;
 }
 
 .post-login-card {
@@ -61,7 +60,6 @@
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 12px;
-  flex-wrap: wrap;
 }
 
 .excursions-list-title {
@@ -163,7 +161,6 @@
 }
 
 .results-details-card {
-  width: 100%;
   max-width: 700px;
 }
 
@@ -323,38 +320,11 @@
   background: #f8fafc;
 }
 
-@media (max-width: 900px) {
-  .post-login-page {
-    padding: 104px 20px 24px;
-  }
-
-  .create-excursion-wrapper {
-    max-width: 100%;
-    gap: 20px;
-  }
-
-  .post-login-card,
-  .excursions-list-card,
-  .results-details-card {
-    max-width: 100%;
-    padding: 24px;
-  }
-
-  .excursions-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 560px) {
-  .post-login-page {
-    padding: 120px 12px 20px;
-  }
-
   .excursions-list-card,
-  .post-login-card,
-  .results-details-card {
+  .post-login-card {
     max-width: 100%;
-    padding: 20px;
+    padding: 22px;
   }
 
   .excursions-grid {
@@ -377,12 +347,5 @@
 
   .excCardActions {
     width: 100%;
-    flex-wrap: wrap;
-  }
-
-  .excursions-list-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
   }
 }
