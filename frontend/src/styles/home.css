@@ -2,9 +2,9 @@
   min-height: 100vh;
   background-color: #f8fafc;
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 24px;
+  align-items: flex-start;
+  padding: 96px 24px 24px;
   box-sizing: border-box;
 }
 
@@ -124,8 +124,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
   width: 100%;
+  max-width: 700px;
 }
 
 .create-excursion-card {
@@ -194,6 +195,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .create-excursion-cancel-button {
@@ -241,6 +243,7 @@
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 12px;
+  flex-wrap: wrap;
 }
 
 .excursions-list-title {
@@ -312,26 +315,162 @@
   box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.35);
 }
 
-@media (max-width: 560px) {
+@media (max-width: 1024px) {
+  .post-login-page {
+    padding: 100px 20px 24px;
+  }
+
+  .post-login-card,
+  .create-excursion-card,
   .excursions-list-card {
     max-width: 100%;
+    padding: 28px;
+  }
+
+  .create-excursion-wrapper {
+    max-width: 100%;
+    gap: 20px;
+  }
+
+  .excursions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .post-login-page {
+    padding: 88px 16px 24px;
+  }
+
+  .post-login-title {
+    font-size: 26px;
+  }
+
+  .post-login-description {
+    font-size: 15px;
+  }
+
+  .create-excursion-title {
+    font-size: 24px;
+  }
+
+  .post-login-card,
+  .create-excursion-card,
+  .excursions-list-card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .results-button-fixed,
+  .profile-button-fixed,
+  .logout-button-fixed {
+    top: 12px;
+    padding: 9px 12px;
+    font-size: 13px;
+    border-radius: 9px;
+  }
+
+  .results-button-fixed {
+    right: 188px;
+  }
+
+  .profile-button-fixed {
+    right: 102px;
+  }
+
+  .logout-button-fixed {
+    right: 16px;
+  }
+}
+
+@media (max-width: 560px) {
+  .post-login-page {
+    padding: 130px 12px 20px;
+  }
+
+  .post-login-title {
+    font-size: 22px;
+  }
+
+  .post-login-description {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .create-excursion-title {
+    font-size: 22px;
+  }
+
+  .create-excursion-description {
+    font-size: 14px;
+  }
+
+  .post-login-card,
+  .create-excursion-card,
+  .excursions-list-card {
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .create-excursion-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .create-excursion-cancel-button,
+  .create-excursion-submit-button,
+  .create-excursion-button {
+    width: 100%;
+  }
+
+  .excursions-list-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .excursions-grid {
     grid-template-columns: 1fr;
   }
 
+  .results-button-fixed,
+  .profile-button-fixed,
+  .logout-button-fixed {
+    top: 12px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
   .results-button-fixed {
-    right: 220px;
-    padding: 9px 14px;
+    right: 168px;
   }
 
   .profile-button-fixed {
-    right: 120px;
-    padding: 9px 14px;
+    right: 90px;
   }
 
   .logout-button-fixed {
-    padding: 9px 14px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .post-login-page {
+    padding: 170px 10px 20px;
+  }
+
+  .results-button-fixed {
+    left: 10px;
+    right: auto;
+  }
+
+  .profile-button-fixed {
+    left: 108px;
+    right: auto;
+  }
+
+  .logout-button-fixed {
+    left: 198px;
+    right: auto;
   }
 }
