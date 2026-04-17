@@ -107,7 +107,6 @@ export default function QuizPage() {
       }
 
       const data = await response.json();
-      console.log(data);
       setResult(data);
       setQuizFinished(true);
     } catch (err) {
@@ -159,7 +158,6 @@ export default function QuizPage() {
       excursion: excursionId,
     });
 
-    console.log(role);
     if (role === 1) {
       navigate(`/map?${params.toString()}`);
     } else {

@@ -98,8 +98,6 @@ export default function MapPageTeacher() {
   }, []);
 
   async function handleEndExcursion(exc) {
-    console.log(qpExcursion, qpUserId);
-
     const resp = await fetch(`${API_BASE}/end/excursion`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -108,7 +106,6 @@ export default function MapPageTeacher() {
         userId: qpUserId,
       }),
     });
-    console.log(resp);
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
       console.error("Neuspješno postavljanje active=true:", err);
@@ -355,17 +352,7 @@ export default function MapPageTeacher() {
     <div className="mv-layout">
       <div className="mv-sidebar">
         <h2 className="mv-title">Map</h2>
-        {/*
-        <div className="mv-block">
-          <strong>user (query):</strong>
-          <div className="mv-mono">{qpUserId || "(nema)"}</div>
-        </div>
 
-        <div className="mv-block">
-          <strong>excursion (query):</strong>
-          <div className="mv-mono">{qpExcursion || "(nema)"}</div>
-        </div>
-*/}
         <div className="mv-block">
           <strong>Moja lokacija:</strong>
           <div className="mv-mono">
@@ -375,30 +362,6 @@ export default function MapPageTeacher() {
           </div>
           {geoErr && <div className="mv-error">Geolocation: {geoErr}</div>}
         </div>
-        {/*
-        <div className="mv-block">
-          <strong>Kontroler kretanja</strong>
-          <div className="mv-move">
-            <button className="mv-btn mv-btnSmall" onClick={moveUp}>
-              ↑ Gore
-            </button>
-            <div className="mv-row">
-              <button className="mv-btn mv-btnSmall mv-flex" onClick={moveLeft}>
-                ← Lijevo
-              </button>
-              <button
-                className="mv-btn mv-btnSmall mv-flex"
-                onClick={moveRight}
-              >
-                → Desno
-              </button>
-            </div>
-            <button className="mv-btn mv-btnSmall" onClick={moveDown}>
-              ↓ Dolje
-            </button>
-          </div>
-        </div>
-        */}
 
         <hr className="mv-hr" />
 

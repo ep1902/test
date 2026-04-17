@@ -125,8 +125,6 @@ export default function HomeTeacher() {
   }
 
   async function handleStartExcursion(exc) {
-    console.log(exc, user);
-
     const resp = await fetch(`${API_BASE}/start/excursion`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

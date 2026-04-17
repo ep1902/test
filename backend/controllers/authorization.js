@@ -100,7 +100,6 @@ async function register(req, res) {
 async function login(req, res) {
   try {
     const data = req.body;
-    console.log(data);
     if (!data?.username || !data?.password) {
       return res
         .status(400)
@@ -115,16 +114,14 @@ async function login(req, res) {
       [data.username],
     );
 
-    console.log(rows);
     if (rows.length === 0)
       return res
         .status(401)
         .json({ success: false, data: "Wrong credentials." });
 
-    console.log("oooo");
     const userRow = rows[0];
     const ok = await bcrypt.compare(data.password, userRow.password_hash);
-    console.log(ok);
+
     if (!ok)
       return res
         .status(401)

@@ -98,10 +98,6 @@ async function submitQuiz(req, res) {
     const answers = req.body.answers;
     const userId = Number(req.body.userId);
 
-    console.log("geofenceId:", geofenceId);
-    console.log("answers:", answers);
-    console.log("userId:", userId);
-
     if (!Number.isFinite(geofenceId)) {
       return res.status(400).json({
         error: "geofenceId je obavezan i mora biti broj.",
@@ -155,7 +151,6 @@ async function submitQuiz(req, res) {
       }
     }
 
-    console.log("score:", score);
     const r = await pool.query(
       `INSERT INTO quiz_attempts (user_id, geofence_id, score, total_questions)
        VALUES ($1, $2, $3, $4)

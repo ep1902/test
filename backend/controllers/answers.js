@@ -10,15 +10,12 @@ async function getAllAnswers(req, res) {
         .json({ error: "geofenceId je obavezan i mora biti broj." });
     }
 
-    console.log("query:", req.query);
-
     const result = await pool.query(
       `SELECT *
        FROM answers
        WHERE question_id = $1`,
       [questionId],
     );
-    console.log(result.rows);
 
     return res.json(result.rows);
   } catch (e) {
@@ -30,7 +27,7 @@ async function getAllAnswers(req, res) {
 async function createAnswer(req, res) {
   try {
     const { questionId, text, is_correct } = req.body || {};
-    console.log(req.body);
+
     if (!questionId || !text) {
       return res
         .status(400)

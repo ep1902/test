@@ -10,15 +10,12 @@ async function getAllQuestions(req, res) {
         .json({ error: "geofenceId je obavezan i mora biti broj." });
     }
 
-    console.log("query:", req.query);
-
     const result = await pool.query(
       `SELECT *
        FROM questions
        WHERE geofence_id = $1`,
       [geofenceId],
     );
-    console.log(result.rows);
 
     return res.json(result.rows);
   } catch (e) {
@@ -30,7 +27,7 @@ async function getAllQuestions(req, res) {
 async function createQuestion(req, res) {
   try {
     const { geofenceId, text } = req.body || {};
-    console.log(req.body);
+
     if (!geofenceId || !text) {
       return res.status(400).json({ error: "geofenceId i text su obavezni." });
     }
@@ -41,7 +38,7 @@ async function createQuestion(req, res) {
        RETURNING id, question_text`,
       [geofenceId, text],
     );
-    console.log(result.rows[0]);
+
     const questionId = result.rows[0].id;
     const questionText = result.rows[0].question_text;
 

@@ -12,8 +12,6 @@ async function getAllGeofences(req, res) {
         .json({ error: "excursionId je obavezan i mora biti broj." });
     }
 
-    console.log("query:", req.query);
-
     const result = await pool.query(
       `SELECT id, excursion_id, name, description, latitude, longitude, radius_m, created_at
        FROM geolocations
@@ -21,7 +19,6 @@ async function getAllGeofences(req, res) {
        ORDER BY created_at DESC`,
       [excursionId],
     );
-    console.log(result.rows);
 
     return res.json(result.rows);
   } catch (e) {
@@ -35,7 +32,6 @@ async function createGeofence(req, res) {
     const { excursion_id, name, description, latitude, longitude, radius_m } =
       req.body || {};
 
-    console.log(req.body);
     const result = await pool.query(
       `INSERT INTO geolocations (excursion_id, name, description, latitude, longitude, radius_m)
        VALUES ($1, $2, $3, $4, $5, $6)

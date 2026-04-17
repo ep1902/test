@@ -195,7 +195,6 @@ const getExcursionResultDetails = async (req, res) => {
 const getAllExcursionResults = async (req, res) => {
   try {
     const teacherId = req.query.userId;
-    console.log(teacherId);
 
     const result = await pool.query(
       `

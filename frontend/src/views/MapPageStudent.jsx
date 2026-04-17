@@ -71,30 +71,6 @@ export default function MapPageStudent() {
   const me = users.find((u) => u.userId === userIdRef.current) || null;
   const isMainUser = !!me?.isMain;
 
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      setGeoErr("Geolocation nije podržan u ovom browseru.");
-      setMyPos(DEFAULT_POS);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setMyPos({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        setGeoErr("");
-      },
-      (err) => {
-        setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
-        setMyPos(DEFAULT_POS);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 30000,
-      },
-    );
-  }, []);
-
   async function refreshUsers() {
     const r = await fetch(`${API_BASE}/all/locations`, {
       method: "POST",
@@ -152,31 +128,32 @@ export default function MapPageStudent() {
   }, [myPos, qpExcursion]);
 
   useEffect(() => {
-    if (!navigator.geolocation) return;
+    if (!navigator.geolocation) {
+      setGeoErr("Geolocation nije podržan u ovom browseru.");
+      return;
+    }
 
-    const refreshRealLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setMyPos({
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
-          });
-          setGeoErr("");
-        },
-        (err) => {
-          setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 3000,
-        },
-      );
+    const watchId = navigator.geolocation.watchPosition(
+      (pos) => {
+        setMyPos({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+        setGeoErr("");
+      },
+      (err) => {
+        setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 0,
+      },
+    );
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
     };
-
-    const intervalId = setInterval(refreshRealLocation, 5000);
-
-    return () => clearInterval(intervalId);
   }, []);
 
   function panToPosition(pos) {
@@ -380,17 +357,7 @@ export default function MapPageStudent() {
     <div className="mv-layout">
       <div className="mv-sidebar">
         <h2 className="mv-title">Map</h2>
-        {/*
-        <div className="mv-block">
-          <strong>user (query):</strong>
-          <div className="mv-mono">{qpUserId || "(nema)"}</div>
-        </div>
 
-        <div className="mv-block">
-          <strong>excursion (query):</strong>
-          <div className="mv-mono">{qpExcursion || "(nema)"}</div>
-        </div>
-*/}
         <div className="mv-block">
           <strong>Moja lokacija:</strong>
           <div className="mv-mono">
@@ -400,29 +367,6 @@ export default function MapPageStudent() {
           </div>
           {geoErr && <div className="mv-error">Geolocation: {geoErr}</div>}
         </div>
-        {/*
-        <div className="mv-block">
-          <strong>Kontroler kretanja</strong>
-          <div className="mv-move">
-            <button className="mv-btn mv-btnSmall" onClick={moveUp}>
-              ↑ Gore
-            </button>
-            <div className="mv-row">
-              <button className="mv-btn mv-btnSmall mv-flex" onClick={moveLeft}>
-                ← Lijevo
-              </button>
-              <button
-                className="mv-btn mv-btnSmall mv-flex"
-                onClick={moveRight}
-              >
-                → Desno
-              </button>
-            </div>
-            <button className="mv-btn mv-btnSmall" onClick={moveDown}>
-              ↓ Dolje
-            </button>
-          </div>
-        </div>*/}
 
         <hr className="mv-hr" />
 
@@ -463,28 +407,37 @@ export default function MapPageStudent() {
           onLoad={(map) => setMapInstance(map)}
           options={{ streetViewControl: false, mapTypeControl: false }}
         >
-          {users
-            .filter(
-              (u) =>
-                u?.position &&
-                typeof u.position.lat === "number" &&
-                typeof u.position.lng === "number",
-            )
-            .map((u) => (
+          {myPos && (
+            <MarkerF
+              position={myPos}
+              title="Moja lokacija"
+              icon={{
+                path: window.google.maps.SymbolPath.CIRCLE,
+                scale: 7,
+                fillColor: "#ef4444",
+                fillOpacity: 1,
+                strokeColor: "#ffffff",
+                strokeWeight: 2,
+              }}
+            />
+          )}
+
+          {mainUser?.position &&
+            typeof mainUser.position.lat === "number" &&
+            typeof mainUser.position.lng === "number" && (
               <MarkerF
-                key={u.userId}
-                position={u.position}
-                title={u.isMain ? `${u.userId} (GLAVNI)` : u.userId}
+                position={mainUser.position}
+                title={`${mainUser.userId} (GLAVNI)`}
                 icon={{
                   path: window.google.maps.SymbolPath.CIRCLE,
-                  scale: 6,
-                  fillColor: u.isMain ? "#2563eb" : "#ef4444",
+                  scale: 7,
+                  fillColor: "#2563eb",
                   fillOpacity: 1,
                   strokeColor: "#ffffff",
                   strokeWeight: 2,
                 }}
               />
-            ))}
+            )}
 
           {mainUser?.position && (
             <CircleF

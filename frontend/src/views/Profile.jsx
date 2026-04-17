@@ -84,7 +84,6 @@ export default function Profile() {
 
   function handleBack() {
     const role = Number(localStorage.getItem("roleId"));
-    console.log(role);
     if (role === 1) {
       navigate("/home");
     } else {

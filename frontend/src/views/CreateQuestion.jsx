@@ -198,7 +198,7 @@ export default function CreateQuestion() {
           alert("Backend nije vratio id kreirane ekskurzije.");
           return;
         }
-        console.log(created);
+
         const params = new URLSearchParams({
           questionId: created.id,
           questionText: created.question_text,
@@ -252,7 +252,6 @@ export default function CreateQuestion() {
   }
 
   function openAnswers(question) {
-    console.log(question);
     const params = new URLSearchParams({
       questionId: question.id,
       questionText: question.question_text,

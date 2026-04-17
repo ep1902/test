@@ -9,7 +9,7 @@ async function startExcursion(req, res) {
   if (!excursionId || !userId) {
     return res.status(400).json({ error: "excursionId i userId su obavezni" });
   }
-  console.log(req.body);
+
   try {
     const result = await pool.query(
       `
@@ -50,7 +50,7 @@ async function endExcursion(req, res) {
   if (!excursionId || !userId) {
     return res.status(400).json({ error: "excursionId i userId su obavezni" });
   }
-  console.log(req.body);
+
   try {
     const result = await pool.query(
       `
@@ -61,7 +61,6 @@ async function endExcursion(req, res) {
       `,
       [excursionId, userId],
     );
-    console.log(result);
 
     if (result.rowCount === 0) {
       return res.status(404).json({
@@ -101,7 +100,7 @@ async function leaveExcursion(req, res) {
   if (!excursionId || !userId) {
     return res.status(400).json({ error: "excursionId i userId su obavezni" });
   }
-  console.log(req.body);
+
   try {
     const excursionMap = userLocations.get(excursionId);
     excursionMap.delete(userId);
