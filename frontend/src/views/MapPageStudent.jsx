@@ -312,12 +312,14 @@ export default function MapPageStudent() {
         const title = g.name ?? `Geofence ${id}`;
         const desc = g.description ?? "";
 
-        setGeofencePopup({
-          title,
-          desc,
-          inside,
-          at: Date.now(),
-        });
+        if (!prev && inside) {
+          setGeofencePopup({
+            title,
+            desc,
+            inside: true,
+            at: Date.now(),
+          });
+        }
 
         if (inside) {
           checkQuizExists(id).then((hasQuiz) => {

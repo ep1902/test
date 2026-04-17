@@ -311,12 +311,16 @@ export default function MapPageTeacher() {
       if (prev !== inside) {
         const title = g.name ?? `Geofence ${id}`;
         const desc = g.description ?? "";
-        setGeofencePopup({
-          title,
-          desc,
-          inside,
-          at: Date.now(),
-        });
+
+        if (!prev && inside) {
+          setGeofencePopup({
+            title,
+            desc,
+            inside: true,
+            at: Date.now(),
+          });
+        }
+
         prevInsideByGeofenceRef.current.set(id, inside);
       }
     }
