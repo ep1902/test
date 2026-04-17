@@ -73,30 +73,6 @@ export default function MapPageTeacher() {
   const me = users.find((u) => u.userId === userIdRef.current) || null;
   const isMainUser = !!me?.isMain;
 
-  useEffect(() => {
-    if (!navigator.geolocation) {
-      setGeoErr("Geolocation nije podržan u ovom browseru.");
-      setMyPos(DEFAULT_POS);
-      return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setMyPos({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-        setGeoErr("");
-      },
-      (err) => {
-        setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
-        setMyPos(DEFAULT_POS);
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 30000,
-      },
-    );
-  }, []);
-
   async function handleEndExcursion(exc) {
     const resp = await fetch(`${API_BASE}/end/excursion`, {
       method: "POST",
@@ -228,31 +204,32 @@ export default function MapPageTeacher() {
   }, [myPos]);
 
   useEffect(() => {
-    if (!navigator.geolocation) return;
+    if (!navigator.geolocation) {
+      setGeoErr("Geolocation nije podržan u ovom browseru.");
+      return;
+    }
 
-    const refreshRealLocation = () => {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setMyPos({
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
-          });
-          setGeoErr("");
-        },
-        (err) => {
-          setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 3000,
-        },
-      );
+    const watchId = navigator.geolocation.watchPosition(
+      (pos) => {
+        setMyPos({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+        setGeoErr("");
+      },
+      (err) => {
+        setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 0,
+      },
+    );
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
     };
-
-    const intervalId = setInterval(refreshRealLocation, 5000);
-
-    return () => clearInterval(intervalId);
   }, []);
 
   function panToPosition(pos) {
@@ -283,6 +260,7 @@ export default function MapPageTeacher() {
 
     users.forEach((u) => {
       if (u.userId === mainUser.userId) return;
+      if (!u.position || !mainUser.position) return;
 
       const isInside =
         distanceMeters(u.position, mainUser.position) <= MAIN_GEOFENCE_RADIUS;
