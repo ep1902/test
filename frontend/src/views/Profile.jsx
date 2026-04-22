@@ -51,7 +51,7 @@ export default function Profile() {
 
         if (!r.ok) {
           const e = await r.json().catch(() => ({}));
-          throw new Error(e.error || "Ne mogu dohvatiti korisničke podatke.");
+          throw new Error(e.error || "I can't retrieve user data.");
         }
 
         const data = await r.json();
@@ -152,7 +152,7 @@ export default function Profile() {
       const json = await r.json().catch(() => null);
 
       if (!r.ok || json?.success === false) {
-        throw new Error(json?.error || "Spremanje nije uspjelo.");
+        throw new Error(json?.error || "Save failed.");
       }
 
       const updatedUser = json?.data?.user;
@@ -184,7 +184,7 @@ export default function Profile() {
     if (!token) return;
 
     const ok = window.confirm(
-      "Jesi li siguran da želiš obrisati profil? Ova radnja je nepovratna.",
+      "Are you sure you want to delete your profile? This action is irreversible.",
     );
     if (!ok) return;
 
@@ -205,7 +205,7 @@ export default function Profile() {
 
       if (!r.ok) {
         const e = await r.json().catch(() => ({}));
-        throw new Error(e.error || "Brisanje profila nije uspjelo.");
+        throw new Error(e.error || "Profile deletion failed.");
       }
 
       localStorage.removeItem(TOKEN_KEY);
@@ -220,7 +220,7 @@ export default function Profile() {
   if (loading) {
     return (
       <div className="profilePage">
-        <div className="profileCard">Učitavam tvoje podatke…</div>
+        <div className="profileCard">Loading your data…</div>
       </div>
     );
   }
@@ -229,15 +229,15 @@ export default function Profile() {
     return (
       <div className="profilePage">
         <div className="profileCard">
-          <h2 className="profileTitle">Greška</h2>
+          <h2 className="profileTitle">Error</h2>
           <p className="profileError">{err}</p>
 
           <div className="profileActionsRow">
             <button className="btn" onClick={() => window.location.reload()}>
-              Pokušaj ponovno
+              Try again
             </button>
             <button className="btnDanger" onClick={logout}>
-              Odjava
+              Logout
             </button>
           </div>
         </div>
@@ -253,19 +253,17 @@ export default function Profile() {
         <div className="profileHeader">
           <div>
             <h1 className="profileTitle">
-              Dobrodošao, {user.firstName || user.name || "korisniče"}
+              Wellcome, {user.firstName || user.name || "user"}
             </h1>
-            <div className="profileSubtitle">
-              Ovdje su tvoji korisnički podaci.
-            </div>
+            <div className="profileSubtitle">Here are your user details.</div>
           </div>
 
           <div className="profileActionsRow">
             <button className="btn" onClick={handleBack}>
-              Povratak
+              Back
             </button>
             <button className="btnDanger" onClick={logout}>
-              Odjava
+              Logout
             </button>
           </div>
         </div>
@@ -320,13 +318,13 @@ export default function Profile() {
                 onClick={deleteProfile}
                 disabled={deleting}
               >
-                {deleting ? "Brišem..." : "Obriši profil"}
+                {deleting ? "Deleteing..." : "Delete profile"}
               </button>
             </>
           ) : (
             <>
               <button className="btn" onClick={saveProfile} disabled={saving}>
-                {saving ? "Spremam..." : "Spremi"}
+                {saving ? "Saveing..." : "Save"}
               </button>
               <button className="btn" onClick={cancelEdit} disabled={saving}>
                 Cancel
@@ -336,7 +334,7 @@ export default function Profile() {
                 onClick={deleteProfile}
                 disabled={deleting || saving}
               >
-                {deleting ? "Brišem..." : "Obriši profil"}
+                {deleting ? "Deleteing..." : "Delete profile"}
               </button>
             </>
           )}

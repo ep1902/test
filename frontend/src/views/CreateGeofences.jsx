@@ -13,8 +13,8 @@ export default function GeofenceManager() {
 
   const [draftCenter, setDraftCenter] = useState(null);
   const [draftRadius, setDraftRadius] = useState(200);
-  const [draftName, setDraftName] = useState("Moj geofence");
-  const [draftDesc, setDraftDesc] = useState("Opis");
+  const [draftName, setDraftName] = useState("My geofence");
+  const [draftDesc, setDraftDesc] = useState("Description");
 
   const [geofences, setGeofences] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -50,7 +50,7 @@ export default function GeofenceManager() {
 
     if (!r.ok) {
       const e = await r.json().catch(() => ({}));
-      alert(e.error || "Greška pri dohvaćanju geofenceova.");
+      alert(e.error || "Error fetching geofences.");
       return;
     }
 
@@ -76,12 +76,14 @@ export default function GeofenceManager() {
 
   async function saveGeofence() {
     if (!draftCenter) {
-      alert("Prvo klikni na kartu da odabereš centar geofencea.");
+      alert("First click on the map to choose the geofence center.");
       return;
     }
 
     if (!Number.isFinite(excursionId)) {
-      alert("Nedostaje excursionId u URL-u (npr. /geofences?excursionId=123).");
+      alert(
+        "Missing excursionId in the URL (e.g. /geofences?excursionId=123).",
+      );
       return;
     }
 
@@ -102,7 +104,7 @@ export default function GeofenceManager() {
 
     if (!r.ok) {
       const e = await r.json().catch(() => ({}));
-      alert(e.error || "Greška pri spremanju geofencea.");
+      alert(e.error || "Error saving geofence.");
       return;
     }
 
@@ -119,7 +121,7 @@ export default function GeofenceManager() {
 
     if (!r.ok) {
       const e = await r.json().catch(() => ({}));
-      alert(e.error || "Greška pri brisanju geofencea.");
+      alert(e.error || "Error deleting geofence.");
       return;
     }
 
@@ -137,20 +139,18 @@ export default function GeofenceManager() {
   if (!Number.isFinite(excursionId)) {
     return (
       <div style={{ padding: 24 }}>
-        Nedostaje ili je neispravan <code>excursionId</code> u URL-u. Primjer:{" "}
+        Missing or invalid <code>excursionId</code> in the URL. Example:
         <code>/geofences?excursionId=20</code>
       </div>
     );
   }
 
   if (loadError) {
-    return (
-      <div style={{ padding: 24 }}>Greška pri učitavanju Maps API-ja.</div>
-    );
+    return <div style={{ padding: 24 }}>Error loading the Maps API.</div>;
   }
 
   if (!isLoaded) {
-    return <div style={{ padding: 24 }}>Učitavam kartu…</div>;
+    return <div style={{ padding: 24 }}>Loading map…</div>;
   }
 
   function handleBack() {
@@ -166,36 +166,36 @@ export default function GeofenceManager() {
               <h2 className="gmTitle">Geofence manager</h2>
 
               <div className="gmSubtitle">
-                Dodaj novi geofence ili odaberi postojeći.
+                Add a new geofence or select an existing one.
               </div>
             </div>
           </div>
 
-          <div className="gmSectionTitle">Novi geofence</div>
+          <div className="gmSectionTitle">New geofence</div>
 
           <div className="gmForm">
             <div className="gmField">
-              <div className="gmLabel">Naziv</div>
+              <div className="gmLabel">Name</div>
               <input
                 className="gmInput"
                 value={draftName}
                 onChange={(e) => setDraftName(e.target.value)}
-                placeholder="Npr. Start zona"
+                placeholder="e.g. Start zone"
               />
             </div>
 
             <div className="gmField">
-              <div className="gmLabel">Opis</div>
+              <div className="gmLabel">Description</div>
               <input
                 className="gmInput"
                 value={draftDesc}
                 onChange={(e) => setDraftDesc(e.target.value)}
-                placeholder="Kratki opis (opcionalno)"
+                placeholder="Short description (optional)"
               />
             </div>
 
             <div className="gmField">
-              <div className="gmLabel">Radius (metri)</div>
+              <div className="gmLabel">Radius (meters)</div>
               <input
                 className="gmInput"
                 type="number"
@@ -207,19 +207,19 @@ export default function GeofenceManager() {
             </div>
 
             <div className="gmCenterBox">
-              <div className="gmCenterTitle">Centar</div>
+              <div className="gmCenterTitle">Center</div>
               <div className="gmMono">
                 {draftCenter
                   ? `${draftCenter.lat.toFixed(6)}, ${draftCenter.lng.toFixed(6)}`
-                  : "Klikni na kartu da odabereš centar"}
+                  : "Click on the map to choose a center"}
               </div>
             </div>
 
             <button className="gmPrimaryBtn" onClick={saveGeofence}>
-              Spremi geofence
+              Save geofence
             </button>
             <button className="gmBackBtn" onClick={handleBack}>
-              Povratak
+              Back
             </button>
           </div>
 
@@ -227,13 +227,13 @@ export default function GeofenceManager() {
 
           <div className="gmListHeader">
             <div className="gmSectionTitle gmSectionTitleNoMargin">
-              Spremljeni geofenceovi
+              Saved geofences
             </div>
-            <div className="gmCount">{geofences.length} ukupno</div>
+            <div className="gmCount">{geofences.length} total</div>
           </div>
 
           {geofences.length === 0 ? (
-            <div className="gmEmpty">Nema spremljenih geofenceova.</div>
+            <div className="gmEmpty">No saved geofences.</div>
           ) : (
             <div className="gmList">
               {geofences.map((g) => {
@@ -264,7 +264,7 @@ export default function GeofenceManager() {
                         onClick={() => questions(g)}
                         title="Obriši"
                       >
-                        Pitanja
+                        Questions
                       </button>
 
                       <button
@@ -272,7 +272,7 @@ export default function GeofenceManager() {
                         onClick={() => deleteGeofence(g.id)}
                         title="Obriši"
                       >
-                        Obriši
+                        Delete
                       </button>
                     </div>
 

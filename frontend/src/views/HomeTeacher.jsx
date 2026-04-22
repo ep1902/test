@@ -54,7 +54,7 @@ export default function HomeTeacher() {
 
         if (!r.ok) {
           const e = await r.json().catch(() => ({}));
-          throw new Error(e.error || "Ne mogu dohvatiti korisničke podatke.");
+          throw new Error(e.error || "Cannot fetch user data.");
         }
 
         const data = await r.json();
@@ -136,7 +136,7 @@ export default function HomeTeacher() {
 
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
-      console.error("Neuspješno postavljanje active=true:", err);
+      console.error("Setup failed active=true:", err);
 
       return;
     }
@@ -149,7 +149,7 @@ export default function HomeTeacher() {
   }
 
   async function handleDeleteExcursion(exc) {
-    if (!window.confirm(`Obrisati izlet "${exc.name}"?`)) return;
+    if (!window.confirm(`Delete excursion "${exc.name}"?`)) return;
 
     const r = await fetch(`${API_BASE}/excursions/delete/${exc.id}`, {
       method: "DELETE",
@@ -160,7 +160,7 @@ export default function HomeTeacher() {
 
     if (!r.ok) {
       const e = await r.json().catch(() => ({}));
-      alert(e.error || "Greška pri brisanju izleta.");
+      alert(e.error || "Error deleting excursion.");
       return;
     }
 
@@ -191,13 +191,13 @@ export default function HomeTeacher() {
 
         if (!r.ok) {
           const err = await r.json().catch(() => ({}));
-          alert(err.error || "Greška pri kreiranju ekskurzije.");
+          alert(err.error || "Error creating excursion.");
           return;
         }
 
         const created = await r.json();
         if (!created?.id) {
-          alert("Backend nije vratio id kreirane ekskurzije.");
+          alert("The backend did not return the created excursion ID.");
           return;
         }
 
@@ -224,7 +224,7 @@ export default function HomeTeacher() {
 
         if (!r.ok) {
           const err = await r.json().catch(() => ({}));
-          alert(err.error || "Greška pri ažuriranju izleta.");
+          alert(err.error || "Error updating excursion.");
           return;
         }
 
@@ -234,7 +234,7 @@ export default function HomeTeacher() {
       }
     } catch (e2) {
       console.error(e2);
-      alert("Network/Server greška.");
+      alert("Network/Server error.");
     }
   }
 
@@ -254,7 +254,7 @@ export default function HomeTeacher() {
   if (loading) {
     return (
       <div className="page">
-        <div className="card">Učitavam tvoje podatke…</div>
+        <div className="card">Loading your data…</div>
       </div>
     );
   }
@@ -270,7 +270,7 @@ export default function HomeTeacher() {
         Profile
       </button>
       <button className="logout-button-fixed" onClick={logout}>
-        Odjava
+        Logout
       </button>
 
       {err && <div className="dashboard-error">{err}</div>}
@@ -404,7 +404,7 @@ export default function HomeTeacher() {
           <div className="post-login-card">
             <div className="post-login-content">
               <h1 className="post-login-title">
-                Welcome, {user.firstName || user.name || "korisniče"}
+                Welcome, {user.firstName || user.name || "user"}
               </h1>
               <p className="post-login-description">
                 You are successfully logged in. From here you can create a new
@@ -426,14 +426,14 @@ export default function HomeTeacher() {
 
           <div className="excursions-list-card">
             <div className="excursions-list-header">
-              <h3 className="excursions-list-title">Moji izleti</h3>
+              <h3 className="excursions-list-title">My excursions</h3>
               <div className="excursions-list-count">
-                {excursions.length} ukupno
+                {excursions.length} total
               </div>
             </div>
 
             {excursions.length === 0 ? (
-              <div className="excursions-empty">Nema kreiranih izleta.</div>
+              <div className="excursions-empty">No excursions created.</div>
             ) : (
               <div className="excursions-grid">
                 {excursions.map((exc) => (

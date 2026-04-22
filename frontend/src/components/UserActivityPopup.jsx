@@ -33,7 +33,7 @@ export default function UserActivityPopup({
     >
       <div className="xu-modal-card" onClick={(e) => e.stopPropagation()}>
         <div className="xu-modal-top">
-          <div className="xu-modal-title">Korisnici na ekskurziji</div>
+          <div className="xu-modal-title">Users on an excursion</div>
           <button
             className="xu-modal-close"
             onClick={onClose}
@@ -44,15 +44,15 @@ export default function UserActivityPopup({
         </div>
 
         {loading ? (
-          <div className="xu-muted">Učitavam…</div>
+          <div className="xu-muted">Loading…</div>
         ) : error ? (
           <div className="xu-error">{error}</div>
         ) : (
           <>
             <div className="xu-section">
-              <div className="xu-section-label">Aktivni ({active.length})</div>
+              <div className="xu-section-label">Active ({active.length})</div>
               {active.length === 0 ? (
-                <div className="xu-muted">Nema aktivnih korisnika.</div>
+                <div className="xu-muted">No active users.</div>
               ) : (
                 <ul className="xu-list">
                   {active.map((u) => (
@@ -66,10 +66,10 @@ export default function UserActivityPopup({
 
             <div className="xu-section">
               <div className="xu-section-label">
-                Neaktivni ({inactive.length})
+                Inactive ({inactive.length})
               </div>
               {inactive.length === 0 ? (
-                <div className="xu-muted">Nema neaktivnih korisnika.</div>
+                <div className="xu-muted">No inactive users.</div>
               ) : (
                 <ul className="xu-list">
                   {inactive.map((u) => (
@@ -85,7 +85,7 @@ export default function UserActivityPopup({
 
         <div className="xu-modal-actions">
           <button className="xu-modal-btn" onClick={onClose}>
-            Zatvori
+            Close
           </button>
         </div>
       </div>

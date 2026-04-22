@@ -51,7 +51,7 @@ export default function HomeStudent() {
 
         if (!r.ok) {
           const e = await r.json().catch(() => ({}));
-          throw new Error(e.error || "Ne mogu dohvatiti korisničke podatke.");
+          throw new Error(e.error || "Cannot fetch user data.");
         }
 
         const data = await r.json();
@@ -105,30 +105,33 @@ export default function HomeStudent() {
 
       if (!r.ok) {
         if (r.status === 409) {
-          alert(data.error || "Ekskurzija postoji, ali trenutno nije aktivna.");
+          alert(
+            data.error || "The excursion exists, but is currently not active.",
+          );
           return;
         }
 
         if (r.status === 404) {
           alert(
-            data.error || "Ekskurzija ne postoji ili su podaci neispravni.",
+            data.error ||
+              "The excursion does not exist or the data is incorrect..",
           );
           return;
         }
 
         if (r.status === 400) {
-          alert(data.error || "Nedostaju podaci (name/password).");
+          alert(data.error || "Missing data (name/password).");
           return;
         }
 
-        alert(data.error || "Greška pri pridruživanju ekskurziji.");
+        alert(data.error || "Error joining excursion.");
         return;
       }
 
       const excursionId = data?.id;
 
       if (!excursionId) {
-        alert("Backend nije vratio id ekskurzije.");
+        alert("The backend did not return the excursion id..");
         return;
       }
       const params = new URLSearchParams({
@@ -138,7 +141,7 @@ export default function HomeStudent() {
       navigate(`/student/map?${params.toString()}`);
     } catch (e2) {
       console.error(e2);
-      alert("Network/Server greška.");
+      alert("Network/Server error.");
     }
   }
 
@@ -158,7 +161,7 @@ export default function HomeStudent() {
   if (loading) {
     return (
       <div className="page">
-        <div className="card">Učitavam tvoje podatke…</div>
+        <div className="card">Loading your data…</div>
       </div>
     );
   }
@@ -176,7 +179,7 @@ export default function HomeStudent() {
       </button>
 
       <button className="logout-button-fixed" onClick={logout}>
-        Odjava
+        Logout
       </button>
 
       {err && <div className="dashboard-error">{err}</div>}
@@ -249,7 +252,7 @@ export default function HomeStudent() {
           <div className="post-login-card">
             <div className="post-login-content">
               <h1 className="post-login-title">
-                Welcome, {user.firstName || user.name || "korisniče"}
+                Welcome, {user.firstName || user.name || "user"}
               </h1>
               <p className="post-login-description">
                 You are successfully logged in. From here you can join an

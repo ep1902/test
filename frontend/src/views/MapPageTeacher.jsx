@@ -84,7 +84,7 @@ export default function MapPageTeacher() {
     });
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
-      console.error("Neuspješno postavljanje active=true:", err);
+      console.error("Failed to set active=true:", err);
 
       return;
     }
@@ -125,7 +125,7 @@ export default function MapPageTeacher() {
       const data = await r.json().catch(() => ({}));
 
       if (!r.ok) {
-        setUsersPopupError(data.error || "Greška pri dohvaćanju korisnika.");
+        setUsersPopupError(data.error || "Error fetching users.");
         return;
       }
 
@@ -134,7 +134,7 @@ export default function MapPageTeacher() {
         inactive: Array.isArray(data.inactive) ? data.inactive : [],
       });
     } catch (e) {
-      setUsersPopupError("Network/Server greška.");
+      setUsersPopupError("Network/Server error.");
     } finally {
       setUsersPopupLoading(false);
     }
@@ -145,7 +145,7 @@ export default function MapPageTeacher() {
     const r = await fetch(
       `${API_BASE}/all/geofences?excursionId=${encodeURIComponent(qpExcursion)}`,
     );
-    if (!r.ok) throw new Error("Ne mogu dohvatiti geofenceove.");
+    if (!r.ok) throw new Error("Cannot fetch geofences.");
     const data = await r.json();
     setGeofences(Array.isArray(data) ? data : []);
   }
@@ -162,7 +162,7 @@ export default function MapPageTeacher() {
 
     if (!r.ok) {
       const e = await r.json().catch(() => ({}));
-      console.warn(e.error || "Ne mogu postaviti glavnog korisnika.");
+      console.warn(e.error || "Cannot set the main user.");
     }
   }
 
@@ -205,7 +205,7 @@ export default function MapPageTeacher() {
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setGeoErr("Geolocation nije podržan u ovom browseru.");
+      setGeoErr("Geolocation is not supported in this browser.");
       return;
     }
 
@@ -218,7 +218,7 @@ export default function MapPageTeacher() {
         setGeoErr("");
       },
       (err) => {
-        setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
+        setGeoErr(err.message || "Cannot get location.");
       },
       {
         enableHighAccuracy: true,
@@ -272,8 +272,8 @@ export default function MapPageTeacher() {
       if (previous !== isInside) {
         alert(
           isInside
-            ? `Korisnik ${u.userId} je UŠAO u tvoj glavni geofence.`
-            : `Korisnik ${u.userId} je IZAŠAO iz tvog glavnog geofencea.`,
+            ? `User ${u.userId} ENTERED your main geofence.`
+            : `User ${u.userId} EXITED your main geofence.`,
         );
       }
     });
@@ -327,8 +327,8 @@ export default function MapPageTeacher() {
   }, [myPos, geofences]);
 
   if (loadError)
-    return <div className="mv-loading">Greška pri učitavanju Maps API-ja.</div>;
-  if (!isLoaded) return <div className="mv-loading">Učitavam kartu…</div>;
+    return <div className="mv-loading">Error loading the Maps API.</div>;
+  if (!isLoaded) return <div className="mv-loading">Loading map…</div>;
 
   return (
     <div className="mv-layout">
@@ -336,11 +336,11 @@ export default function MapPageTeacher() {
         <h2 className="mv-title">Map</h2>
 
         <div className="mv-block">
-          <strong>Moja lokacija:</strong>
+          <strong>My location:</strong>
           <div className="mv-mono">
             {myPos
               ? `${myPos.lat.toFixed(6)}, ${myPos.lng.toFixed(6)}`
-              : "nije dostupno"}
+              : "not available"}
           </div>
           {geoErr && <div className="mv-error">Geolocation: {geoErr}</div>}
         </div>
@@ -348,14 +348,14 @@ export default function MapPageTeacher() {
         <hr className="mv-hr" />
 
         <div className="mv-block">
-          <strong>Korisnici:</strong> <span>{users.length}</span>
+          <strong>Users:</strong> <span>{users.length}</span>
         </div>
         <button onClick={openUsersPopup} className="excIconBtn quiz-btn">
-          Korisnici
+          Users
         </button>
 
         <div className="mv-block">
-          <strong>Geofenceovi:</strong> <span>{geofences.length}</span>
+          <strong>Geofences:</strong> <span>{geofences.length}</span>
         </div>
         <button
           type="button"

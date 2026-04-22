@@ -36,13 +36,13 @@ export default function ResultsPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Greška pri dohvaćanju rezultata.");
+        throw new Error(data.message || "Error fetching results.");
       }
 
       setExcursions(data.results || []);
     } catch (err) {
       console.error(err);
-      setError(err.message || "Greška pri dohvaćanju rezultata.");
+      setError(err.message || "Error fetching results.");
     } finally {
       setLoadingList(false);
     }
@@ -65,15 +65,13 @@ export default function ResultsPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.message || "Greška pri dohvaćanju detalja rezultata.",
-        );
+        throw new Error(data.message || "Error fetching result details.");
       }
 
       setDetails(data);
     } catch (err) {
       console.error(err);
-      setError(err.message || "Greška pri dohvaćanju detalja rezultata.");
+      setError(err.message || "Error fetching result details.");
       setSelectedExcursionId(null);
       setDetails(null);
     } finally {
@@ -97,7 +95,7 @@ export default function ResultsPage() {
         className="logout-button-fixed results-home-button"
         onClick={backHome}
       >
-        Natrag
+        Back
       </button>
 
       {error && (
@@ -109,28 +107,26 @@ export default function ResultsPage() {
           <>
             <div className="post-login-card results-hero-card">
               <div className="post-login-content">
-                <h1 className="post-login-title">Moji rezultati ekskurzija</h1>
+                <h1 className="post-login-title">My excursion results</h1>
                 <p className="post-login-description">
-                  Ovdje možeš pregledati rezultate svojih završenih ekskurzija i
-                  otvoriti detaljan prikaz rezultata po lokacijama.
+                  Here you can review the results of your completed excursions
+                  and open a detailed view of the results by location.
                 </p>
               </div>
             </div>
 
             <div className="excursions-list-card">
               <div className="excursions-list-header">
-                <h3 className="excursions-list-title">Završene ekskurzije</h3>
+                <h3 className="excursions-list-title">Completed excursions</h3>
                 <div className="excursions-list-count">
-                  {excursions.length} ukupno
+                  {excursions.length} total
                 </div>
               </div>
 
               {loadingList ? (
-                <div className="excursions-empty">Učitavanje rezultata...</div>
+                <div className="excursions-empty">Loading results...</div>
               ) : excursions.length === 0 ? (
-                <div className="excursions-empty">
-                  Nema dostupnih rezultata.
-                </div>
+                <div className="excursions-empty">No results available.</div>
               ) : (
                 <div className="excursions-grid">
                   {excursions.map((excursion) => (

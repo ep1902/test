@@ -5,33 +5,33 @@ export default function DetailsCard({ details, loading, onBack }) {
   return (
     <div className="excursions-list-card results-details-card">
       <div className="excursions-list-header results-details-header">
-        <h3 className="excursions-list-title">Detalji ekskurzije</h3>
+        <h3 className="excursions-list-title">Excursion details</h3>
         <button
           type="button"
           className="create-excursion-cancel-button"
           onClick={onBack}
         >
-          Zatvori
+          Close
         </button>
       </div>
 
       {loading ? (
-        <div className="excursions-empty">Učitavanje detalja...</div>
+        <div className="excursions-empty">Loading details...</div>
       ) : !details || !details.summary ? (
-        <div className="excursions-empty">Detalji nisu dostupni.</div>
+        <div className="excursions-empty">Details are not available.</div>
       ) : (
         <>
           <div className="excCard resultsSummaryCard">
             <div className="excCardHeader">
               <div className="excCardTitle">
                 {details.summary.excursion_name ||
-                  `Ekskurzija #${details.summary.id}`}
+                  `Excursion #${details.summary.id}`}
               </div>
             </div>
 
             <div className="excCardMeta resultsExcCardMeta">
               <div className="resultsMetaRow">
-                <span className="excLabel">Ukupni rezultat:</span>
+                <span className="excLabel">Overall score:</span>
                 <span className="excValue">
                   {details.summary.total_score} /{" "}
                   {details.summary.total_questions}
@@ -42,23 +42,23 @@ export default function DetailsCard({ details, loading, onBack }) {
 
           {details.geofences?.length === 0 ? (
             <div className="excursions-empty">
-              Nema dostupnih detalja za ovu ekskurziju.
+              There are no details available for this excursion.
             </div>
           ) : (
             <div className="results-table-wrapper">
               <table className="results-table-clean">
                 <thead>
                   <tr>
-                    <th>Lokacija</th>
-                    <th>Rezultat</th>
-                    <th>Broj pitanja</th>
+                    <th>Location</th>
+                    <th>Result</th>
+                    <th>Number of questions</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
                   {details.geofences.map((item) => (
                     <tr key={item.id}>
-                      <td>{item.geofence_name || `Lokacija #${item.id}`}</td>
+                      <td>{item.geofence_name || `Location #${item.id}`}</td>
                       <td>
                         {item.score} / {item.total_questions}
                       </td>
@@ -71,7 +71,7 @@ export default function DetailsCard({ details, loading, onBack }) {
                               : "results-status-badge pending"
                           }
                         >
-                          {item.already_solved ? "Riješeno" : "Nije riješeno"}
+                          {item.already_solved ? "Solved" : "Not resolved"}
                         </span>
                       </td>
                     </tr>

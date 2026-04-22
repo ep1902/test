@@ -253,7 +253,7 @@ export default function CreateAnswer() {
   if (loading) {
     return (
       <div className="page">
-        <div className="card">Učitavam tvoje podatke…</div>
+        <div className="card">Loading your data…</div>
       </div>
     );
   }
@@ -261,7 +261,7 @@ export default function CreateAnswer() {
   if (!user) {
     return (
       <div className="page">
-        <div className="card">Korisnik nije učitan.</div>
+        <div className="card">User not loaded.</div>
       </div>
     );
   }
@@ -273,7 +273,7 @@ export default function CreateAnswer() {
       </button>
 
       <button className="logout-button-fixed" onClick={logout}>
-        Odjava
+        Logout
       </button>
 
       {(mode === "create" || mode === "edit") && (
@@ -285,8 +285,8 @@ export default function CreateAnswer() {
 
             <p className="create-excursion-description">
               {mode === "create"
-                ? "Unesi novi odgovor za odabrano pitanje."
-                : "Ažuriraj postojeći odgovor."}
+                ? "Enter a new answer for the selected question."
+                : "Update existing answer."}
             </p>
 
             <form onSubmit={handleFormSubmit} className="create-excursion-form">
@@ -319,7 +319,7 @@ export default function CreateAnswer() {
                     checked={answerForm.is_correct}
                     onChange={handleAnswerChange}
                   />
-                  Točan odgovor
+                  Correct answer
                 </label>
               </div>
 
@@ -349,13 +349,13 @@ export default function CreateAnswer() {
           <div className="post-login-card">
             <div className="post-login-content">
               <h1 className="post-login-title">
-                Odgovori na pitanje
+                Answers for question
                 <br />
                 {questionText}
               </h1>
               <p className="post-login-description">
-                Ovdje možeš kreirati, uređivati i brisati odgovore za odabrano
-                pitanje. Jedan odgovor može biti označen kao točan.
+                Here you can create, edit and delete answers for the selected
+                question. One answer can be marked as correct.
               </p>
             </div>
 
@@ -364,7 +364,7 @@ export default function CreateAnswer() {
                 onClick={goBack}
                 className="create-excursion-cancel-button"
               >
-                Nazad
+                Back
               </button>
 
               <button
@@ -378,14 +378,16 @@ export default function CreateAnswer() {
 
           <div className="excursions-list-card">
             <div className="excursions-list-header">
-              <h3 className="excursions-list-title">Kreirani odgovori</h3>
+              <h3 className="excursions-list-title">Answers created</h3>
               <div className="excursions-list-count">
-                {answers.length} ukupno
+                {answers.length} total
               </div>
             </div>
 
             {answers.length === 0 ? (
-              <div className="excursions-empty">Nema kreiranih odgovora.</div>
+              <div className="excursions-empty">
+                No answers have been created.
+              </div>
             ) : (
               <div className="excursions-grid">
                 {answers.map((answer) => (

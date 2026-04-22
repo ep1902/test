@@ -6,7 +6,7 @@ export default function AnswerCard({ answer, onEdit, onDelete }) {
       <div className="answerCardText">{answer.answer_text}</div>
 
       {answer.is_correct && (
-        <div className="answerCardBadge">Točan odgovor</div>
+        <div className="answerCardBadge">Correct answer</div>
       )}
 
       <div className="answerCardActions">

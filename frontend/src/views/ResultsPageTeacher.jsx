@@ -43,14 +43,14 @@ export default function ResultsPageTeacher() {
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Greška pri dohvaćanju profesorovih ekskurzija.",
+          data.message || "Error fetching professor's excursions.",
         );
       }
 
       setExcursions(data.results || []);
     } catch (err) {
       console.error(err);
-      setError(err.message || "Greška pri dohvaćanju profesorovih ekskurzija.");
+      setError(err.message || "Error fetching professor's excursions.");
     } finally {
       setLoadingList(false);
     }
@@ -75,15 +75,13 @@ export default function ResultsPageTeacher() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          data.message || "Greška pri dohvaćanju korisničkih rezultata.",
-        );
+        throw new Error(data.message || "Error fetching user results.");
       }
 
       setUserResults(data.results || []);
     } catch (err) {
       console.error(err);
-      setError(err.message || "Greška pri dohvaćanju korisničkih rezultata.");
+      setError(err.message || "Error fetching user results.");
       setSelectedExcursion(null);
       setUserResults([]);
     } finally {
@@ -111,16 +109,14 @@ export default function ResultsPageTeacher() {
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Greška pri dohvaćanju detalja rezultata učenika.",
+          data.message || "Error fetching students result details.",
         );
       }
 
       setDetails(data);
     } catch (err) {
       console.error(err);
-      setError(
-        err.message || "Greška pri dohvaćanju detalja rezultata učenika.",
-      );
+      setError(err.message || "Error fetching students result details.");
       setSelectedStudentId(null);
       setDetails(null);
     } finally {
@@ -152,7 +148,7 @@ export default function ResultsPageTeacher() {
         className="logout-button-fixed results-home-button"
         onClick={backHome}
       >
-        Natrag
+        Back
       </button>
 
       {error && (
@@ -164,28 +160,27 @@ export default function ResultsPageTeacher() {
           <>
             <div className="post-login-card results-hero-card">
               <div className="post-login-content">
-                <h1 className="post-login-title">Rezultati mojih ekskurzija</h1>
+                <h1 className="post-login-title">Results of my excursions</h1>
                 <p className="post-login-description">
-                  Ovdje možeš pregledati ekskurzije koje si kreirao, vidjeti
-                  rezultate svih učenika i otvoriti detaljan prikaz po
-                  lokacijama.
+                  Here you can review the excursions you have created, see the
+                  results of all students, and open a detailed view by location.
                 </p>
               </div>
             </div>
 
             <div className="excursions-list-card">
               <div className="excursions-list-header">
-                <h3 className="excursions-list-title">Moje ekskurzije</h3>
+                <h3 className="excursions-list-title">My excursions</h3>
                 <div className="excursions-list-count">
-                  {excursions.length} ukupno
+                  {excursions.length} total
                 </div>
               </div>
 
               {loadingList ? (
-                <div className="excursions-empty">Učitavanje ekskurzija...</div>
+                <div className="excursions-empty">Loading excursions...</div>
               ) : excursions.length === 0 ? (
                 <div className="excursions-empty">
-                  Nema ekskurzija s barem jednim pridruženim korisnikom.
+                  There are no excursions with at least one associated user.
                 </div>
               ) : (
                 <div className="excursions-grid">
@@ -205,10 +200,10 @@ export default function ResultsPageTeacher() {
             <div className="excursions-list-header results-details-header">
               <div>
                 <h3 className="excursions-list-title">
-                  Učenici za ekskurziju: {selectedExcursion.excursion_name}
+                  Students for excursion: {selectedExcursion.excursion_name}
                 </h3>
                 <div className="excursions-list-count">
-                  {userResults.length} ukupno
+                  {userResults.length} total
                 </div>
               </div>
 
@@ -217,15 +212,15 @@ export default function ResultsPageTeacher() {
                 className="create-excursion-cancel-button"
                 onClick={handleBackFromUsers}
               >
-                Zatvori
+                Close
               </button>
             </div>
 
             {loadingUsers ? (
-              <div className="excursions-empty">Učitavanje korisnika...</div>
+              <div className="excursions-empty">Loading users...</div>
             ) : userResults.length === 0 ? (
               <div className="excursions-empty">
-                Nema korisnika za ovu ekskurziju.
+                There are no users for this excursion.
               </div>
             ) : (
               <div className="excursions-grid">

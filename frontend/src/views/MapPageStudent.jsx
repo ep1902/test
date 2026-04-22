@@ -91,7 +91,7 @@ export default function MapPageStudent() {
     const r = await fetch(
       `${API_BASE}/all/geofences?excursionId=${encodeURIComponent(qpExcursion)}`,
     );
-    if (!r.ok) throw new Error("Ne mogu dohvatiti geofenceove.");
+    if (!r.ok) throw new Error("Cannot fetch geofences.");
     const data = await r.json();
     setGeofences(Array.isArray(data) ? data : []);
   }
@@ -129,7 +129,7 @@ export default function MapPageStudent() {
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setGeoErr("Geolocation nije podržan u ovom browseru.");
+      setGeoErr("Geolocation is not supported in this browser.");
       return;
     }
 
@@ -142,7 +142,7 @@ export default function MapPageStudent() {
         setGeoErr("");
       },
       (err) => {
-        setGeoErr(err.message || "Ne mogu dohvatiti lokaciju.");
+        setGeoErr(err.message || "Cannot get location.");
       },
       {
         enableHighAccuracy: true,
@@ -176,7 +176,7 @@ export default function MapPageStudent() {
 
     const onEnded = (payload) => {
       if (String(payload.excursionId) !== String(qpExcursion)) return;
-      alert("Ekskurzija je završena.");
+      alert("The excursion has ended.");
       handleEndedExcursion();
     };
 
@@ -200,7 +200,7 @@ export default function MapPageStudent() {
 
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({}));
-      console.error("Neuspješno napuštanje:", err);
+      console.error("Failed to leave excursion:", err);
       return;
     }
 
@@ -259,8 +259,8 @@ export default function MapPageStudent() {
       if (previous !== isInside) {
         alert(
           isInside
-            ? `Korisnik ${u.userId} je UŠAO u tvoj glavni geofence.`
-            : `Korisnik ${u.userId} je IZAŠAO iz tvog glavnog geofencea.`,
+            ? `User ${u.userId} ENTERED your main geofence.`
+            : `User ${u.userId} EXITED your main geofence.`,
         );
       }
     });
@@ -348,11 +348,11 @@ export default function MapPageStudent() {
   }, [myPos, geofences]);
 
   if (loadError) {
-    return <div className="mv-loading">Greška pri učitavanju Maps API-ja.</div>;
+    return <div className="mv-loading">Error loading the Maps API.</div>;
   }
 
   if (!isLoaded) {
-    return <div className="mv-loading">Učitavam kartu…</div>;
+    return <div className="mv-loading">Loading map…</div>;
   }
 
   return (
@@ -361,11 +361,11 @@ export default function MapPageStudent() {
         <h2 className="mv-title">Map</h2>
 
         <div className="mv-block">
-          <strong>Moja lokacija:</strong>
+          <strong>My location:</strong>
           <div className="mv-mono">
             {myPos
               ? `${myPos.lat.toFixed(6)}, ${myPos.lng.toFixed(6)}`
-              : "nije dostupno"}
+              : "not available"}
           </div>
           {geoErr && <div className="mv-error">Geolocation: {geoErr}</div>}
         </div>
@@ -373,11 +373,11 @@ export default function MapPageStudent() {
         <hr className="mv-hr" />
 
         <div className="mv-block">
-          <strong>Korisnici:</strong> <span>{users.length}</span>
+          <strong>Users:</strong> <span>{users.length}</span>
         </div>
 
         <div className="mv-block">
-          <strong>Geofenceovi:</strong> <span>{geofences.length}</span>
+          <strong>Geofences:</strong> <span>{geofences.length}</span>
         </div>
 
         <div className="mv-actionButtons">
@@ -387,7 +387,7 @@ export default function MapPageStudent() {
               className="excIconBtn quiz-btn"
               onClick={handleNavigateToQuiz}
             >
-              Kviz
+              Quiz
             </button>
           )}
 

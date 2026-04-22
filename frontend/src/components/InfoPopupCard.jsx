@@ -15,7 +15,7 @@ export default function InfoPopupCard({ open, data, onClose }) {
 
   if (!open || !data) return null;
 
-  const statusText = data.inside ? "UŠAO" : "IZAŠAO";
+  const statusText = data.inside ? "ENTERED" : "EXITED";
   const timeText = new Date(data.at).toLocaleTimeString();
 
   return (
@@ -40,7 +40,7 @@ export default function InfoPopupCard({ open, data, onClose }) {
 
         {data.desc ? (
           <div className="gf-desc">
-            <div className="gf-row-label">Opis</div>
+            <div className="gf-row-label">Description</div>
             <div className="gf-desc-text">{data.desc}</div>
           </div>
         ) : null}
@@ -51,13 +51,13 @@ export default function InfoPopupCard({ open, data, onClose }) {
         </div>
 
         <div className="gf-row">
-          <span className="gf-row-label">Vrijeme</span>
+          <span className="gf-row-label">Time</span>
           <span className="gf-row-value">{timeText}</span>
         </div>
 
         <div className="gf-modal-actions">
           <button className="gf-modal-btn" onClick={onClose}>
-            Zatvori
+            Close
           </button>
         </div>
       </div>

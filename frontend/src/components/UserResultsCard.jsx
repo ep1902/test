@@ -6,7 +6,7 @@ export default function UserResultsCard({ userResult, onDetails }) {
     <div className="excCard resultsExcCard">
       <div className="excCardHeader">
         <div className="excCardTitle">
-          {userResult.username || `Korisnik #${userResult.user_id}`}
+          {userResult.username || `User #${userResult.user_id}`}
         </div>
 
         <div className="excCardActions">
@@ -15,21 +15,21 @@ export default function UserResultsCard({ userResult, onDetails }) {
             className="excIconBtn"
             onClick={() => onDetails(userResult.user_id)}
           >
-            Detalji
+            Details
           </button>
         </div>
       </div>
 
       <div className="excCardMeta resultsExcCardMeta">
         <div className="resultsMetaRow">
-          <span className="excLabel">Ukupni rezultat:</span>
+          <span className="excLabel">Overall score:</span>
           <span className="excValue">
             {userResult.total_score} / {userResult.total_questions}
           </span>
         </div>
 
         <div className="resultsMetaRow">
-          <span className="excLabel">Riješene lokacije:</span>
+          <span className="excLabel">Solved locations:</span>
           <span className="excValue">
             {userResult.solved_geofences_count} /{" "}
             {userResult.total_geofences_count}

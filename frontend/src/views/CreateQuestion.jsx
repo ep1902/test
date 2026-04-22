@@ -36,7 +36,7 @@ export default function CreateQuestion() {
     }
 
     if (!geofenceId) {
-      setErr("Nedostaje geofenceId u URL-u.");
+      setErr("Missing geofenceId in the URL.");
       setLoading(false);
       return;
     }
@@ -63,7 +63,7 @@ export default function CreateQuestion() {
 
         if (!r.ok) {
           const e = await r.json().catch(() => ({}));
-          throw new Error(e.error || "Ne mogu dohvatiti korisničke podatke.");
+          throw new Error(e.error || "Cannot fetch user data.");
         }
 
         const data = await r.json();
@@ -92,7 +92,7 @@ export default function CreateQuestion() {
 
       if (!r.ok) {
         const e = await r.json().catch(() => ({}));
-        throw new Error(e.error || "Ne mogu dohvatiti pitanja.");
+        throw new Error(e.error || "Cannot fetch questions.");
       }
 
       const data = await r.json();
@@ -141,7 +141,7 @@ export default function CreateQuestion() {
   }
 
   async function handleDeleteQuestion(question) {
-    if (!window.confirm(`Obrisati pitanje "${question.question_text}"?`)) {
+    if (!window.confirm(`Delete question "${question.question_text}"?`)) {
       return;
     }
 
@@ -155,7 +155,7 @@ export default function CreateQuestion() {
 
       if (!r.ok) {
         const e = await r.json().catch(() => ({}));
-        alert(e.error || "Greška pri brisanju pitanja.");
+        alert(e.error || "Error deleting question.");
         return;
       }
 
@@ -166,7 +166,7 @@ export default function CreateQuestion() {
       }
     } catch (e) {
       console.error(e);
-      alert("Network/Server greška.");
+      alert("Network/Server error.");
     }
   }
 
@@ -189,13 +189,13 @@ export default function CreateQuestion() {
 
         if (!r.ok) {
           const err = await r.json().catch(() => ({}));
-          alert(err.error || "Greška pri kreiranju pitanja.");
+          alert(err.error || "Error creating question.");
           return;
         }
 
         const created = await r.json();
         if (!created?.id) {
-          alert("Backend nije vratio id kreirane ekskurzije.");
+          alert("The backend did not return the created question ID.");
           return;
         }
 
@@ -225,7 +225,7 @@ export default function CreateQuestion() {
 
         if (!r.ok) {
           const err = await r.json().catch(() => ({}));
-          alert(err.error || "Greška pri ažuriranju pitanja.");
+          alert(err.error || "Error updating question.");
           return;
         }
 
@@ -234,7 +234,7 @@ export default function CreateQuestion() {
       }
     } catch (e2) {
       console.error(e2);
-      alert("Network/Server greška.");
+      alert("Network/Server error.");
     }
   }
 
@@ -262,7 +262,7 @@ export default function CreateQuestion() {
   if (loading) {
     return (
       <div className="page">
-        <div className="card">Učitavam tvoje podatke…</div>
+        <div className="card">Loading your data…</div>
       </div>
     );
   }
@@ -270,7 +270,7 @@ export default function CreateQuestion() {
   if (!user) {
     return (
       <div className="page">
-        <div className="card">Korisnik nije učitan.</div>
+        <div className="card">User not loaded.</div>
       </div>
     );
   }
@@ -282,7 +282,7 @@ export default function CreateQuestion() {
       </button>
 
       <button className="logout-button-fixed" onClick={logout}>
-        Odjava
+        Logout
       </button>
 
       {(mode === "create" || mode === "edit") && (
@@ -294,8 +294,8 @@ export default function CreateQuestion() {
 
             <p className="create-excursion-description">
               {mode === "create"
-                ? "Unesi novo pitanje za odabranu geozonu."
-                : "Ažuriraj postojeće pitanje."}
+                ? "Enter a new question for the selected geofence."
+                : "Update the existing question."}
             </p>
 
             <form onSubmit={handleFormSubmit} className="create-excursion-form">
@@ -312,7 +312,7 @@ export default function CreateQuestion() {
                   value={questionForm.question_text}
                   onChange={handleQuestionChange}
                   className="create-excursion-input"
-                  placeholder="Unesi tekst pitanja"
+                  placeholder="Enter the question text"
                   required
                   rows={4}
                 />
@@ -344,11 +344,11 @@ export default function CreateQuestion() {
           <div className="post-login-card">
             <div className="post-login-content">
               <h1 className="post-login-title">
-                Pitanja za geozonu: {geofenceName}
+                Questions for geofence: {geofenceName}
               </h1>
               <p className="post-login-description">
-                Ovdje možeš kreirati, uređivati i brisati pitanja za odabranu
-                geozonu. Kasnije možeš za svako pitanje dodati i odgovore.
+                Here you can create, edit, and delete questions for the selected
+                geofence. Later, you can also add answers for each question.
               </p>
             </div>
 
@@ -357,7 +357,7 @@ export default function CreateQuestion() {
                 onClick={goBack}
                 className="create-excursion-cancel-button"
               >
-                Nazad
+                Back
               </button>
 
               <button
@@ -371,14 +371,14 @@ export default function CreateQuestion() {
 
           <div className="excursions-list-card">
             <div className="excursions-list-header">
-              <h3 className="excursions-list-title">Kreirana pitanja</h3>
+              <h3 className="excursions-list-title">Created questions</h3>
               <div className="excursions-list-count">
-                {questions.length} ukupno
+                {questions.length} total
               </div>
             </div>
 
             {questions.length === 0 ? (
-              <div className="excursions-empty">Nema kreiranih pitanja.</div>
+              <div className="excursions-empty">No questions created.</div>
             ) : (
               <div className="excursions-grid">
                 {questions.map((question) => (

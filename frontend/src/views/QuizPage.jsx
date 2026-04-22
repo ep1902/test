@@ -41,7 +41,7 @@ export default function QuizPage() {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || "Greška pri dohvaćanju kviza.");
+          throw new Error(data.error || "Error fetching quiz.");
         }
 
         if (data.alreadySolved) {
@@ -58,7 +58,7 @@ export default function QuizPage() {
         setQuestions(data.questions || []);
       } catch (err) {
         console.error(err);
-        setError("Nije moguće učitati kviz.");
+        setError("Unable to load quiz.");
       } finally {
         setLoading(false);
       }
@@ -103,7 +103,7 @@ export default function QuizPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Greška pri predaji kviza.");
+        throw new Error("Error submitting quiz.");
       }
 
       const data = await response.json();
@@ -111,7 +111,7 @@ export default function QuizPage() {
       setQuizFinished(true);
     } catch (err) {
       console.error(err);
-      setError("Došlo je do greške pri slanju odgovora.");
+      setError("An error occurred while sending answers.");
     }
   }
 
@@ -138,7 +138,7 @@ export default function QuizPage() {
 
         if (!r.ok) {
           const e = await r.json().catch(() => ({}));
-          throw new Error(e.error || "Ne mogu dohvatiti korisničke podatke.");
+          throw new Error(e.error || "Can't fetch user data.");
         }
 
         const data = await r.json();
@@ -169,7 +169,7 @@ export default function QuizPage() {
     return (
       <div className="quiz-page">
         <div className="quiz-card">
-          <p className="quiz-helper-text">Učitavanje kviza...</p>
+          <p className="quiz-helper-text">Loading quiz...</p>
         </div>
       </div>
     );
@@ -189,11 +189,11 @@ export default function QuizPage() {
     return (
       <div className="quiz-page">
         <div className="quiz-card">
-          <h1 className="quiz-title">Kviz već riješen</h1>
+          <h1 className="quiz-title">Quiz already solved</h1>
           <div className="quiz-result-box">
-            <p className="quiz-result-text">Već si riješio/la taj kviz.</p>
+            <p className="quiz-result-text">You've already solved that quiz.</p>
             <p className="quiz-result-text">
-              Osvojio/la si {result?.score} od {result?.totalQuestions} bodova.
+              You scored {result?.score} out of {result?.totalQuestions} points.
             </p>
             <div className="quiz-actions">
               <button
@@ -201,7 +201,7 @@ export default function QuizPage() {
                 className="quiz-primary-button"
                 onClick={handleReturn}
               >
-                Povratak na mapu
+                Back to map
               </button>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function QuizPage() {
     return (
       <div className="quiz-page">
         <div className="quiz-card">
-          <p className="quiz-helper-text">Nema dostupnih pitanja.</p>
+          <p className="quiz-helper-text">There are no questions available.</p>
         </div>
       </div>
     );
@@ -224,10 +224,10 @@ export default function QuizPage() {
     return (
       <div className="quiz-page">
         <div className="quiz-card">
-          <h1 className="quiz-title">Kviz završen</h1>
+          <h1 className="quiz-title">Quiz completed</h1>
           <div className="quiz-result-box">
             <p className="quiz-result-text">
-              Osvojio/la si {result?.score} od {result?.totalQuestions} bodova.
+              You scored {result?.score} out of {result?.totalQuestions} points.
             </p>
             <div className="quiz-actions">
               <button
@@ -235,7 +235,7 @@ export default function QuizPage() {
                 className="quiz-primary-button"
                 onClick={handleReturn}
               >
-                Povratak na mapu
+                Back to map
               </button>
             </div>
           </div>
@@ -252,15 +252,15 @@ export default function QuizPage() {
       <div className="quiz-card">
         <h1 className="quiz-title">Kviz</h1>
         <p className="quiz-description">
-          Odaberi jedan odgovor za svako pitanje i predaj kviz na kraju.
+          Choose one answer for each question and submit the quiz at the end.
         </p>
 
         <div className="quiz-progress">
-          Pitanje {currentQuestionIndex + 1} / {questions.length}
+          Question {currentQuestionIndex + 1} / {questions.length}
         </div>
 
         <div className="quiz-question-field">
-          <label className="quiz-question-label">Pitanje</label>
+          <label className="quiz-question-label">Question</label>
           <h2 className="quiz-question-text">{currentQuestion.question}</h2>
         </div>
 
@@ -282,7 +282,7 @@ export default function QuizPage() {
             onClick={handlePreviousQuestion}
             disabled={currentQuestionIndex === 0}
           >
-            Prethodno
+            Back
           </button>
 
           {!isLastQuestion ? (
@@ -292,7 +292,7 @@ export default function QuizPage() {
               onClick={handleNextQuestion}
               disabled={!selectedAnswerId}
             >
-              Dalje
+              Next
             </button>
           ) : (
             <button
@@ -301,7 +301,7 @@ export default function QuizPage() {
               onClick={handleSubmitQuiz}
               disabled={!selectedAnswerId}
             >
-              Završi kviz
+              Submit
             </button>
           )}
         </div>
