@@ -300,7 +300,7 @@ export default function CreateAnswer() {
                   value={answerForm.answer_text}
                   onChange={handleAnswerChange}
                   className="create-excursion-input"
-                  placeholder="Unesi tekst odgovora"
+                  placeholder="Enter the text of the answer"
                   required
                   rows={4}
                 />

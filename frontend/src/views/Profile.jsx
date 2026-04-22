@@ -289,7 +289,7 @@ export default function Profile() {
           />
 
           <EditableInfo
-            label="Ime"
+            label="Name"
             name="firstName"
             value={
               isEditing ? form.firstName : user.firstName || user.name || ""
@@ -299,7 +299,7 @@ export default function Profile() {
           />
 
           <EditableInfo
-            label="Prezime"
+            label="Surname"
             name="lastName"
             value={isEditing ? form.lastName : user.lastName || ""}
             editable={isEditing}
