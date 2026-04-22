@@ -250,7 +250,7 @@ export default function QuizPage() {
   return (
     <div className="quiz-page">
       <div className="quiz-card">
-        <h1 className="quiz-title">Kviz</h1>
+        <h1 className="quiz-title">Quiz</h1>
         <p className="quiz-description">
           Choose one answer for each question and submit the quiz at the end.
         </p>
